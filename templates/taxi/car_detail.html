@@ -4,11 +4,11 @@
 
 {% block content %}
 {% if user in car.drivers.all %}
-    <a href="{% url 'taxi:car-update' pk=car.id %}" class="btn btn-danger" style="margin-bottom: 10px">
+    <a href="{% url 'taxi:toggle-driver' pk=car.id %}" class="btn btn-danger" style="margin-bottom: 10px">
     Delete me from this car
 </a>
 {% else %}
-    <a href="{% url 'taxi:car-update' pk=car.id %}" class="btn btn-success" style="margin-bottom: 10px">
+    <a href="{% url 'taxi:toggle-driver' pk=car.id %}" class="btn btn-success" style="margin-bottom: 10px">
     Assign me to this car
 </a>
 

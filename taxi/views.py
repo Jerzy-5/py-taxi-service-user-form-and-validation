@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import DriverLicenseUpdateForm, CarCreateForm
+from .forms import DriverLicenseUpdateForm, CarCreateForm, DriverCreationForm
 from .models import Driver, Car, Manufacturer
 
 
@@ -26,6 +26,18 @@ def index(request):
     }
 
     return render(request, "taxi/index.html", context=context)
+
+
+@login_required
+def toggle_driver(request, car_id):
+    if request.method == "POST":
+        car = get_object_or_404(Car, id=car_id)
+        if request.user in car.drivers.all():
+            car.drivers.remove(request.user)
+        else:
+            car.drivers.add(request.user)
+        return redirect("taxi:car_detail", car_id=car.id)
+    return redirect("taxi:car_detail", car_id=car_id)
 
 
 class ManufacturerListView(LoginRequiredMixin, generic.ListView):
@@ -91,7 +103,7 @@ class DriverDetailView(LoginRequiredMixin, generic.DetailView):
 
 class DriverCreateView(LoginRequiredMixin, generic.CreateView):
     model = Driver
-    fields = "__all__"
+    form = DriverCreationForm
     success_url = reverse_lazy("taxi:driver-list")
 
 
