@@ -54,8 +54,8 @@ urlpatterns = [
          DriverDeleteView.as_view(), name="driver-delete"),
     path("drivers/<int:pk>/update/",
          DriverUpdateView.as_view(), name="driver-update"),
-    path('cars/<int:car_id>/toggle-driver/', toggle_driver,
-         name='toggle-driver')
+    path("cars/<int:car_id>/toggle-driver/", toggle_driver,
+         name="toggle-driver")
 ]
 
 app_name = "taxi"
