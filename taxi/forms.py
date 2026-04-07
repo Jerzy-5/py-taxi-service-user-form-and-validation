@@ -40,7 +40,7 @@ class DriverCreationForm(UserCreationForm):
     class Meta:
         model = Driver
         fields = ["username", "first_name",
-                  "last_name", "license_number", "password1", "password2"]
+                  "last_name", "license_number"]
 
     def clean_license_number(self):
         license_number = (self.cleaned_data.

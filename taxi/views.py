@@ -36,8 +36,8 @@ def toggle_driver(request, car_id):
             car.drivers.remove(request.user)
         else:
             car.drivers.add(request.user)
-        return redirect("taxi:car_detail", car_id=car.id)
-    return redirect("taxi:car_detail", car_id=car_id)
+        return redirect("taxi:car_detail", pk=car.id)
+    return redirect("taxi:car_detail", pk=car_id)
 
 
 class ManufacturerListView(LoginRequiredMixin, generic.ListView):
